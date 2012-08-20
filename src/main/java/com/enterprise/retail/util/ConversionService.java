@@ -9,14 +9,16 @@ import org.springframework.format.support.FormattingConversionServiceFactoryBean
 import org.springframework.stereotype.Component;
 
 import com.enterprise.retail.entity.Customer;
-//import com.enterprise.retail.entity.Sector;
-//import com.enterprise.retail.entity.Site;
-//import com.enterprise.retail.entity.Vehicle;
+import com.enterprise.retail.entity.Category;
+import com.enterprise.retail.entity.Product;
+import com.enterprise.retail.entity.Store;
+import com.enterprise.retail.entity.SaleTransaction;
 
 import com.enterprise.retail.repository.CustomerRepository;
-//import com.enterprise.retail.repository.SectorRepository;
-//import com.enterprise.retail.repository.SiteRepository;
-//import com.enterprise.retail.repository.VehicleRepository;
+import com.enterprise.retail.repository.CategoryRepository;
+import com.enterprise.retail.repository.StoreRepository;
+import com.enterprise.retail.repository.ProductRepository;
+import com.enterprise.retail.repository.SaleTransactionRepository;
 
 @Component("conversionService")
 public class ConversionService extends FormattingConversionServiceFactoryBean 
@@ -25,46 +27,39 @@ public class ConversionService extends FormattingConversionServiceFactoryBean
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-//	@Autowired
-//	private SiteRepository siteRepository;
-//	
-//	@Autowired
-//	private VehicleRepository vehicleRepository;
-//	
-//	@Autowired
-//	private SectorRepository sectorRepository;
-//	
-//	@Override
-//	public void installFormatters(FormatterRegistry registry) 
-//	{
-//		super.installFormatters(registry);
-//		registry.addConverter(getStringToCrewConverter());
-//		registry.addConverter(getStringToDateConverter());
-//		registry.addConverter(getStringToSiteConverter());
-//		registry.addConverter(getStringToVehicleConverter());
-//		registry.addConverter(getStringToSectorConverter());
-//	}
-//	
-//	public Converter<String, Date> getStringToDateConverter()
-//	{
-//		return new Converter<String, Date>() {
-//			@Override
-//			public Date convert(String source) {
-//				return new Date();
-//			}
-//		};
-//	}
-//	
-//	public Converter<String, Sector> getStringToSectorConverter()
-//	{
-//		return new Converter<String, Sector>() {
-//			@Override
-//			public Sector convert(String source) {
-//				return sectorRepository.findOne(Long.parseLong(source));
-//			}
-//		};
-//	}
-//	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private StoreRepository storeRepository;
+	
+	@Autowired
+	private ProductRepository productRepository;
+	
+	@Autowired
+	private SaleTransactionRepository saleTransactionRepository;
+	
+	@Override
+	public void installFormatters(FormatterRegistry registry) 
+	{
+		super.installFormatters(registry);
+		registry.addConverter(getStringToCategoryConverter());
+		registry.addConverter(getStringToCustomerConverter());
+		registry.addConverter(getStringToProductConverter());
+		registry.addConverter(getStringToStoreConverter());
+		registry.addConverter(getStringToSaleTransactionConverter());
+	}
+
+	public Converter<String, Category> getStringToCategoryConverter()
+	{
+		return new Converter<String, Category>() {
+			@Override
+			public Category convert(String source) {
+				return categoryRepository.findOne(Integer.parseInt(source));
+			}
+		};
+	}
+	
 	public Converter<String, Customer> getStringToCustomerConverter()
 	{
 		return new Converter<String, Customer>() {
@@ -74,24 +69,34 @@ public class ConversionService extends FormattingConversionServiceFactoryBean
 			}
 		};
 	}
-//	
-//	public Converter<String, Site> getStringToSiteConverter()
-//	{
-//		return new Converter<String, Site>() {
-//			@Override
-//			public Site convert(String source) {
-//				return siteRepository.findOne(Long.parseLong(source));
-//			}
-//		};
-//	}
-//	
-//	public Converter<String, Vehicle> getStringToVehicleConverter()
-//	{
-//		return new Converter<String, Vehicle>() {
-//			@Override
-//			public Vehicle convert(String source) {
-//				return vehicleRepository.findOne(Long.parseLong(source));
-//			}
-//		};
-//	}
+	
+	public Converter<String, Product> getStringToProductConverter()
+	{
+		return new Converter<String, Product>() {
+			@Override
+			public Product convert(String source) {
+				return productRepository.findOne(Integer.parseInt(source));
+			}
+		};
+	}
+	
+	public Converter<String, Store> getStringToStoreConverter()
+	{
+		return new Converter<String, Store>() {
+			@Override
+			public Store convert(String source) {
+				return storeRepository.findOne(Integer.parseInt(source));
+			}
+		};
+	}
+
+	public Converter<String, SaleTransaction> getStringToSaleTransactionConverter()
+	{
+		return new Converter<String, SaleTransaction>() {
+			@Override
+			public SaleTransaction convert(String source) {
+				return saleTransactionRepository.findOne(Integer.parseInt(source));
+			}
+		};
+	}
 }

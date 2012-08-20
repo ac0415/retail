@@ -31,4 +31,28 @@ public class AdminProductController {
 		uiModel.addAttribute("product", product);
 		return "admin/products/show";
 	}
+
+	@RequestMapping(value="/create")
+	public String create(Model uiModel) {
+		
+		uiModel.addAttribute("product", new Product());
+		
+		return "admin/products/create";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String save(Product product, BindingResult result, HttpServletRequest request, Model uiModel)
+	{
+		productValidator.validate(product, result);
+		if(result.hasErrors()) {
+			uiModel.addAttribute("errors", result.getAllErrors());
+			uiModel.addAttribute("product", product);
+			
+			return "admin/products/create";
+		}
+		
+		product = productRepository.save(product);
+		
+		return  "redirect:/admin/customers";
+	}
 }

@@ -3,20 +3,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<form:form action="/admin/stores/save" method="POST" modelAttribute="store" enctype="multipart/form-data">
-<h1>Create New Store</h1></br>
+<form:form action="/admin/categories/save" method="POST" modelAttribute="category" enctype="multipart/form-data">
+<h1>Create New Category</h1></br>
 	<table>
 		<tr>
-			<td>Store Code:</br>
-			<form:input path="storeCode"/></td>
+			<td>Category Code:</br>
+			<form:input path="categoryCode"/></td>
 		</tr>
 		<tr>
-			<td>Store Name:</br>
-			<form:input path="storeName"/></td>
+			<td>Category Name:</br>
+			<form:input path="categoryName"/></td>
 		</tr>
 		<tr>
-			<td>Store Address:</br>
-			<form:textarea path="storeAddress"/></td>
+			<td>Description:</br>
+			<form:textarea path="description"/></td>
 		</tr>
 	</table>
 	<input type="submit" value="Submit"/>

@@ -31,4 +31,28 @@ public class AdminCategoryController {
 		uiModel.addAttribute("category", category);
 		return "admin/categories/show";
 	}
+
+	@RequestMapping(value="/create")
+	public String create(Model uiModel) {
+		
+		uiModel.addAttribute("category", new Category());
+		
+		return "admin/categories/create";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String save(Category category, BindingResult result, HttpServletRequest request, Model uiModel)
+	{
+		categoryValidator.validate(category, result);
+		if(result.hasErrors()) {
+			uiModel.addAttribute("errors", result.getAllErrors());
+			uiModel.addAttribute("category", category);
+			
+			return "admin/categories/create";
+		}
+		
+		category = categoryRepository.save(category);
+		
+		return  "redirect:/admin/categories";
+	}
 }

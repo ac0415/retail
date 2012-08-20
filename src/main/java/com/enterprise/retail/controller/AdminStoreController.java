@@ -31,4 +31,28 @@ public class AdminStoreController {
 		uiModel.addAttribute("store", store);
 		return "admin/stores/show";
 	}
+
+	@RequestMapping(value="/create")
+	public String create(Model uiModel) {
+		
+		uiModel.addAttribute("store", new Store());
+		
+		return "admin/stores/create";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String save(Store store, BindingResult result, HttpServletRequest request, Model uiModel)
+	{
+		storeValidator.validate(store, result);
+		if(result.hasErrors()) {
+			uiModel.addAttribute("errors", result.getAllErrors());
+			uiModel.addAttribute("store", store);
+			
+			return "admin/stores/create";
+		}
+		
+		store = storeRepository.save(store);
+		
+		return  "redirect:/admin/stores";
+	}
 }

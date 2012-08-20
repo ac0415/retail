@@ -10,7 +10,7 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	@NotNull
-	private int id; 
+	private Integer id; 
 	
 	@Column(name="product_code", unique=true)
 	@NotNull
@@ -80,4 +80,10 @@ public class Product {
 		this.saleTransaction = saleTransaction;
 	}
 
+	public boolean isNew() {
+		if(id == null) 
+			return true;
+		else 
+			return false;
+	}
 }

@@ -31,4 +31,28 @@ public class AdminSaleTransactionController {
 		uiModel.addAttribute("saleTransaction", saleTransaction);
 		return "admin/saletransactions/show";
 	}
+
+	@RequestMapping(value="/create")
+	public String create(Model uiModel) {
+		
+		uiModel.addAttribute("saleTransaction", new SaleTransaction());
+		
+		return "admin/saleTransactions/create";
+	}
+	
+	@RequestMapping(value="/save", method=RequestMethod.POST)
+	public String save(SaleTransaction saleTransaction, BindingResult result, HttpServletRequest request, Model uiModel)
+	{
+		saleTransactionValidator.validate(saleTransaction, result);
+		if(result.hasErrors()) {
+			uiModel.addAttribute("errors", result.getAllErrors());
+			uiModel.addAttribute("saleTransaction", saleTransaction);
+			
+			return "admin/saleTransactions/create";
+		}
+		
+		saleTransaction = saleTransactionRepository.save(saleTransaction);
+		
+		return  "redirect:/admin/customers";
+	}
 }
