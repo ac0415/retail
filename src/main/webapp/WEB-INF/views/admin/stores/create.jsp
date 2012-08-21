@@ -16,7 +16,7 @@
 		</tr>
 		<tr>
 			<td>Store Address:</br>
-			<form:textarea path="storeAddress"/></td>
+			<form:textarea path="address"/></td>
 		</tr>
 	</table>
 	<input type="submit" value="Submit"/>
