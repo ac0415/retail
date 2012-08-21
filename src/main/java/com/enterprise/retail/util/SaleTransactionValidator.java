@@ -24,14 +24,12 @@ public class SaleTransactionValidator implements Validator{
 		//Typecast
 		SaleTransaction saleTransaction = (SaleTransaction)target;
 		
-		/*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contactNumber", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "transactionCode", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "transactionDate", null, "This should not be empty!");
+		
 		// Check for uniqueness
-		if(customerRepository.findByEmail(customer.getEmail()).size() > 0 && customer.isNew()) {
-			errors.rejectValue("email", null, "Email already used!");
-		}*/
+		if(saleTransactionRepository.findByTransactionCode(saleTransaction.getTransactionCode()).size() > 0 && saleTransaction.isNew()) {
+			errors.rejectValue("transactionCode", null, "Code already used!");
+		}
 	}
 }

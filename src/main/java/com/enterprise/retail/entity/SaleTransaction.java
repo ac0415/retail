@@ -12,7 +12,7 @@ public class SaleTransaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	@NotNull
-	private int id; 
+	private Integer id; 
 	
 	@Column(name="transaction_code", unique=true)
 	@NotNull
@@ -74,5 +74,11 @@ public class SaleTransaction {
 		this.id = id;
 	}	
 	
+	public boolean isNew() {
+		if(id == null) 
+			return true;
+		else 
+			return false;
+	}
 	
 }

@@ -24,14 +24,17 @@ public class StoreValidator implements Validator{
 		//Typecast
 		Store store = (Store)target;
 		
-		/*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contactNumber", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeCode", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "storeName", null, "This should not be empty!");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", null, "This should not be empty!");
+		
 		// Check for uniqueness
-		if(customerRepository.findByEmail(customer.getEmail()).size() > 0 && customer.isNew()) {
-			errors.rejectValue("email", null, "Email already used!");
-		}*/
+		if(storeRepository.findByStoreCode(store.getStoreCode()).size() > 0 && store.isNew()) {
+			errors.rejectValue("storeCode", null, "Code already used!");
+		}
+
+		if(storeRepository.findByStoreName(store.getStoreName()).size() > 0 && store.isNew()) {
+			errors.rejectValue("storeName", null, "Name already used!");
+		}
 	}
 }

@@ -13,7 +13,7 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	@NotNull
-	private int id; 
+	private Integer id; 
 	
 	@Column(name="category_code", unique=true)
 	@NotNull
@@ -61,5 +61,10 @@ public class Category {
 		this.product = product;
 	}
 
-
+	public boolean isNew() {
+		if(id == null) 
+			return true;
+		else 
+			return false;
+	}
 }

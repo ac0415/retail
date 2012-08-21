@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 import com.enterprise.retail.entity.Category;
 import com.enterprise.retail.repository.CategoryRepository;
 
-@Component("CustomerValidator")
+@Component("CategoryValidator")
 public class CategoryValidator implements Validator{
 	@Autowired
 	CategoryRepository categoryRepository;
@@ -24,14 +24,16 @@ public class CategoryValidator implements Validator{
 		//Typecast
 		Category category = (Category)target;
 		
-		/*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contactNumber", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryCode", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "categoryName", null, "This should not be empty!");
+
 		// Check for uniqueness
-		if(customerRepository.findByEmail(customer.getEmail()).size() > 0 && customer.isNew()) {
-			errors.rejectValue("email", null, "Email already used!");
-		}*/
+		if(categoryRepository.findByCategoryCode(category.getCategoryCode()).size() > 0 && category.isNew()) {
+			errors.rejectValue("categoryCode", null, "Code already used!");
+		}
+
+		if(categoryRepository.findByCategoryName(category.getCategoryName()).size() > 0 && category.isNew()) {
+			errors.rejectValue("categoryName", null, "Name already used!");
+		}
 	}
 }

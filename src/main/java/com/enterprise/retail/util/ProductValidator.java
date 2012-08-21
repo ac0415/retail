@@ -25,14 +25,17 @@ public class ProductValidator implements Validator{
 		//Typecast
 		Product product = (Product)target;
 		
-		/*ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "contactNumber", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", null, "This should not be empty!");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "productCode", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "productName", null, "This should not be empty!");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cost", null, "This should not be empty!");
+		
 		// Check for uniqueness
-		if(customerRepository.findByEmail(customer.getEmail()).size() > 0 && customer.isNew()) {
-			errors.rejectValue("email", null, "Email already used!");
-		}*/
+		if(productRepository.findByProductCode(product.getProductCode()).size() > 0 && product.isNew()) {
+			errors.rejectValue("productCode", null, "Code already used!");
+		}
+
+		if(productRepository.findByProductName(product.getProductName()).size() > 0 && product.isNew()) {
+			errors.rejectValue("productName", null, "Name already used!");
+		}
 	}
 }

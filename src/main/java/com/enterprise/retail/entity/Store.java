@@ -12,7 +12,7 @@ public class Store {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column
 	@NotNull
-	private int id; 
+	private Integer id; 
 	
 	@Column(name="store_code", unique=true)
 	@NotNull
@@ -63,6 +63,11 @@ public class Store {
 		this.st = st;
 	}
 	
-	
+	public boolean isNew() {
+		if(id == null) 
+			return true;
+		else 
+			return false;
+	}
 	
 }
